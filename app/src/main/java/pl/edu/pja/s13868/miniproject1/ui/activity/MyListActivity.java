@@ -2,9 +2,11 @@ package pl.edu.pja.s13868.miniproject1.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ import pl.edu.pja.s13868.miniproject1.ui.adapter.ProductArrayAdapter;
 /**
  * @author Krzysztof Dzido <s13868@pjwstka.edu.pl>
  */
-public class MyListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener{
+public class MyListActivity extends AppCompatActivity implements ProductArrayAdapter.OnOptionItemClick, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     private ProductRepository mProductRepository;
     private ProductArrayAdapter productAdapter;
@@ -35,6 +37,7 @@ public class MyListActivity extends AppCompatActivity implements AdapterView.OnI
         this.mProductRepository = SingletonRegistry.INSTANCE.productRepositorySingleton();
         List<Product> productItems = new ArrayList<>(this.mProductRepository.listAllProducts());
         this.productAdapter = new ProductArrayAdapter(this, productItems);
+        this.productAdapter.setOnOptionItemClick(this);
 
         ListView productListView = (ListView) findViewById(R.id.listView);
         productListView.setAdapter(this.productAdapter);
@@ -51,5 +54,29 @@ public class MyListActivity extends AppCompatActivity implements AdapterView.OnI
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(getApplicationContext(), "Long Click", Toast.LENGTH_LONG).show();
         return true;
+    }
+
+    @Override
+    public void OnOptionClick(View pView) {
+        PopupMenu popupMenu = new PopupMenu(this, pView);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_edit:
+                        Toast.makeText(getApplicationContext(), "edit", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.action_delete:
+                        Toast.makeText(getApplicationContext(), "delete", Toast.LENGTH_SHORT).show();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+        popupMenu.inflate(R.menu.popup_menu);
+        popupMenu.show();
+
     }
 }

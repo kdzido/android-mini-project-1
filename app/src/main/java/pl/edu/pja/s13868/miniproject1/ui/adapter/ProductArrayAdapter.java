@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
 
     private Context context;
     private List<Product> products = new ArrayList<>();
+    private OnOptionItemClick mOnOptionItemClick;
 
     public ProductArrayAdapter(final Context context, final List<Product> productList) {
         super(context, R.layout.product_list_row, productList);
@@ -36,8 +39,12 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
     private class ViewHolder {
         CheckBox productBought;
         TextView productName;
+        ImageView mImageView;
     }
 
+    public void setOnOptionItemClick(OnOptionItemClick pOnOptionItemClick) {
+        mOnOptionItemClick = pOnOptionItemClick;
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -50,6 +57,7 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
             holder = new ViewHolder();
             holder.productBought = (CheckBox) convertView.findViewById(R.id.productBought);
             holder.productName = (TextView) convertView.findViewById(R.id.productName);
+            holder.mImageView = (ImageView) convertView.findViewById(R.id.options);
             convertView.setTag(holder);
 
         } else {
@@ -58,8 +66,15 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
 
         final Product product = products.get(position);
         holder.productName.setText(product.getName());
-        Log.d("pp", "===> product: " + product.isBought());
         holder.productBought.setChecked(product.isBought());
+        holder.mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mOnOptionItemClick != null){
+                    mOnOptionItemClick.OnOptionClick(v);
+                }
+            }
+        });
 
 //        CheckBox cb = (CheckBox) convertView.findViewById(R.id.productBought);
 //        if (products.get(position).isBought()) {
@@ -73,4 +88,7 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
         return convertView;
     }
 
+    public interface OnOptionItemClick{
+        void OnOptionClick(View pView);
+    }
 }
