@@ -1,11 +1,13 @@
 package pl.edu.pja.s13868.miniproject1.domain.model.product;
 
+import java.io.Serializable;
+
 /**
  * Represents a product on a shopping list.
  *
  * @author Krzysztof Dzido <s13868@pjwstka.edu.pl>
  */
-public class Product {
+public class Product implements Serializable{
 
     private String id;
     private String name;

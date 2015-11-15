@@ -1,5 +1,6 @@
 package pl.edu.pja.s13868.miniproject1.ui.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -57,17 +58,21 @@ public class MyListActivity extends AppCompatActivity implements ProductArrayAda
     }
 
     @Override
-    public void OnOptionClick(View pView) {
+    public void OnOptionClick(View pView, final Product pProduct) {
         PopupMenu popupMenu = new PopupMenu(this, pView);
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_edit:
-                        Toast.makeText(getApplicationContext(), "edit", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), EditActivity.class);
+                        intent.putExtra(EditActivity.TAG_PRODUCT, pProduct);
+                        startActivity(intent);
                         return true;
                     case R.id.action_delete:
-                        Toast.makeText(getApplicationContext(), "delete", Toast.LENGTH_SHORT).show();
+                        SingletonRegistry.INSTANCE.productRepositorySingleton().delete(pProduct.getId());
+                        productAdapter.deleteProductById(pProduct.getId());
+                        productAdapter.notifyDataSetChanged();
                         return true;
                     default:
                         return false;
@@ -78,5 +83,11 @@ public class MyListActivity extends AppCompatActivity implements ProductArrayAda
         popupMenu.inflate(R.menu.popup_menu);
         popupMenu.show();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        productAdapter.notifyDataSetChanged();
     }
 }

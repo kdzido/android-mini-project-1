@@ -20,12 +20,18 @@
         </activity>
         <activity android:name=".ui.activity.MyOptionsActivity" >
         </activity>
-        <activity android:name=".ui.activity.MyListActivity"
-            android:label="@string/product_list">
+        <activity
+            android:name=".ui.activity.MyListActivity"
+            android:label="@string/product_list" >
         </activity>
         <activity
             android:name=".ui.activity.preference.SettingsActivity"
             android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name=".ui.activity.EditActivity"
+            android:label="@string/title_activity_edit"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 

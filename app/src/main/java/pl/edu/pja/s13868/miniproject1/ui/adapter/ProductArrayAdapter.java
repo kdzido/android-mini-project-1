@@ -13,9 +13,13 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import pl.edu.pja.s13868.miniproject1.R;
+import pl.edu.pja.s13868.miniproject1.domain.helpers.SingletonRegistry;
 import pl.edu.pja.s13868.miniproject1.domain.model.product.Product;
 
 /**
@@ -46,6 +50,34 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
         mOnOptionItemClick = pOnOptionItemClick;
     }
 
+    public void deleteProductById(final String pProductId){
+        Set<String> productsToDelete = new HashSet<>();
+
+        for(Product product: products){
+            if (product.getId().equals(pProductId)) {
+                productsToDelete.add(product.getId());
+            }
+        }
+
+        Product toDelete = null;
+        for (Product p : products) {
+            if (p.getId().equals(pProductId)) {
+                toDelete = p;
+                break;
+            }
+        }
+        products.remove(toDelete);
+
+        for (Product product : products) {
+            SingletonRegistry.INSTANCE.productRepositorySingleton().delete(product.getId());
+        }
+
+        for (String productId : productsToDelete) {
+            SingletonRegistry.INSTANCE.productRepositorySingleton().delete(productId);
+        }
+        notifyDataSetChanged();
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
@@ -70,25 +102,16 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mOnOptionItemClick != null){
-                    mOnOptionItemClick.OnOptionClick(v);
+                if (mOnOptionItemClick != null) {
+                    mOnOptionItemClick.OnOptionClick(v, product);
                 }
             }
         });
 
-//        CheckBox cb = (CheckBox) convertView.findViewById(R.id.productBought);
-//        if (products.get(position).isBought()) {
-//            cb.setChecked(true);
-//        } else {
-//            cb.setChecked(false);
-//        }
-//        TextView name = (TextView) convertView.findViewById(R.id.productName);
-//        name.setText(products.get(position).getName());
-
         return convertView;
     }
 
-    public interface OnOptionItemClick{
-        void OnOptionClick(View pView);
+    public interface OnOptionItemClick {
+        void OnOptionClick(View pView, Product pProduct);
     }
 }
