@@ -1,4 +1,4 @@
-package pl.edu.pja.s13868.miniproject1.persistence.sqlite;
+package pl.edu.pja.s13868.miniproject1.domain.persistence.sqlite;
 
 import java.util.Collection;
 

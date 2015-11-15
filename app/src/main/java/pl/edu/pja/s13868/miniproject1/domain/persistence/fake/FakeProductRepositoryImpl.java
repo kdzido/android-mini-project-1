@@ -1,4 +1,4 @@
-package pl.edu.pja.s13868.miniproject1.persistence.fake;
+package pl.edu.pja.s13868.miniproject1.domain.persistence.fake;
 
 import java.util.Collection;
 import java.util.Collections;

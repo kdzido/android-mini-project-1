@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MiniProject-1</string>
+    <string name="product_list">Product list</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
 

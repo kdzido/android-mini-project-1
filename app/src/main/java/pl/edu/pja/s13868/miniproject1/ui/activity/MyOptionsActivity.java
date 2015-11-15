@@ -1,9 +1,11 @@
-package pl.edu.pja.s13868.miniproject1;
+package pl.edu.pja.s13868.miniproject1.ui.activity;
 
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+
+import pl.edu.pja.s13868.miniproject1.R;
 
 /**
  * The activity for handling the options view.

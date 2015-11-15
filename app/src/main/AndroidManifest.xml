@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MyMainActivity"
+            android:name=".ui.activity.MyMainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
@@ -18,12 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MyOptionsActivity" >
+        <activity android:name=".ui.activity.MyOptionsActivity" >
         </activity>
-        <activity android:name=".MyListActivity" >
+        <activity android:name=".ui.activity.MyListActivity"
+            android:label="@string/product_list">
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".ui.activity.preference.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
     </application>

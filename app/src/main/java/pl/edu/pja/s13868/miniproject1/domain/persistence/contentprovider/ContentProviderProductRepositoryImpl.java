@@ -1,4 +1,4 @@
-package pl.edu.pja.s13868.miniproject1.persistence.contentprovider;
+package pl.edu.pja.s13868.miniproject1.domain.persistence.contentprovider;
 
 import java.util.Collection;
 
