@@ -24,7 +24,6 @@ import pl.edu.pja.s13868.miniproject1.ui.adapter.ProductArrayAdapter;
  */
 public class MyListActivity extends AppCompatActivity implements ProductArrayAdapter.OnOptionItemClick, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
-    private ProductRepository mProductRepository;
     private ProductArrayAdapter productAdapter;
 
     @Override
@@ -35,8 +34,7 @@ public class MyListActivity extends AppCompatActivity implements ProductArrayAda
     }
 
     private void initUI() {
-        this.mProductRepository = SingletonRegistry.INSTANCE.productRepositorySingleton();
-        List<Product> productItems = new ArrayList<>(this.mProductRepository.listAllProducts());
+        List<Product> productItems = new ArrayList<>(SingletonRegistry.INSTANCE.productRepositorySingleton().listAllProducts());
         this.productAdapter = new ProductArrayAdapter(this, productItems);
         this.productAdapter.setOnOptionItemClick(this);
 
@@ -70,7 +68,7 @@ public class MyListActivity extends AppCompatActivity implements ProductArrayAda
                         startActivity(intent);
                         return true;
                     case R.id.action_delete:
-                        SingletonRegistry.INSTANCE.productRepositorySingleton().delete(pProduct.getId());
+//                        SingletonRegistry.INSTANCE.productRepositorySingleton().delete(pProduct.getId());
                         productAdapter.deleteProductById(pProduct.getId());
                         productAdapter.notifyDataSetChanged();
                         return true;

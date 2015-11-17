@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -29,14 +28,12 @@ import pl.edu.pja.s13868.miniproject1.domain.model.product.Product;
  */
 public class ProductArrayAdapter extends ArrayAdapter<Product> {
 
-    private Context context;
     private List<Product> products = new ArrayList<>();
     private OnOptionItemClick mOnOptionItemClick;
 
     public ProductArrayAdapter(final Context context, final List<Product> productList) {
         super(context, R.layout.product_list_row, productList);
 
-        this.context = context;
         this.products.addAll(productList);
     }
 
@@ -58,6 +55,9 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
                 productsToDelete.add(product.getId());
             }
         }
+        for (String productId : productsToDelete) {
+            SingletonRegistry.INSTANCE.productRepositorySingleton().delete(productId);
+        }
 
         Product toDelete = null;
         for (Product p : products) {
@@ -66,15 +66,12 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
                 break;
             }
         }
-        products.remove(toDelete);
 
-        for (Product product : products) {
-            SingletonRegistry.INSTANCE.productRepositorySingleton().delete(product.getId());
+        // removes all occurrences of the product on the list (defensive)
+        while(products.remove(toDelete)) {
+            remove(toDelete);
         }
 
-        for (String productId : productsToDelete) {
-            SingletonRegistry.INSTANCE.productRepositorySingleton().delete(productId);
-        }
         notifyDataSetChanged();
     }
 

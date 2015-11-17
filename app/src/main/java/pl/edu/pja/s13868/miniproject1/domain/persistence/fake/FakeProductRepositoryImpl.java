@@ -72,11 +72,6 @@ public class FakeProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Product[] listAllProductsAsArray() {
-        return listAllProducts().toArray(new Product[0]);
-    }
-
-    @Override
     public void store(final Product product) {
         if (product == null) {
             throw new IllegalArgumentException("Product cannot be null");

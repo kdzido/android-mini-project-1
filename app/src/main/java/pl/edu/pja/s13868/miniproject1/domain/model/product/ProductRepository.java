@@ -25,13 +25,6 @@ public interface ProductRepository {
     Collection<Product> listAllProducts();
 
     /**
-     * Lists all products in the persistent store.
-     *
-     * @return the all products array
-     */
-    Product[] listAllProductsAsArray();
-
-    /**
      * Persistes the given product.
      * Inserts a new product or updates an existing one.
      *

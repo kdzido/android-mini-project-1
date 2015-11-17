@@ -23,11 +23,6 @@ public class SqliteProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Product[] listAllProductsAsArray() {
-        throw new UnsupportedOperationException("Not implemented yet.");
-    }
-
-    @Override
     public void store(final Product product) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
