@@ -14,9 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pl.edu.pja.s13868.miniproject1.R;
-import pl.edu.pja.s13868.miniproject1.domain.helpers.SingletonRegistry;
+import pl.edu.pja.s13868.miniproject1.SingletonRegistry;
 import pl.edu.pja.s13868.miniproject1.domain.model.product.Product;
-import pl.edu.pja.s13868.miniproject1.domain.model.product.ProductRepository;
 import pl.edu.pja.s13868.miniproject1.ui.adapter.ProductArrayAdapter;
 
 /**
@@ -68,7 +67,7 @@ public class MyListActivity extends AppCompatActivity implements ProductArrayAda
                         startActivity(intent);
                         return true;
                     case R.id.action_delete:
-//                        SingletonRegistry.INSTANCE.productRepositorySingleton().delete(pProduct.getId());
+                        SingletonRegistry.INSTANCE.productRepositorySingleton().delete(pProduct.getId());
                         productAdapter.deleteProductById(pProduct.getId());
                         productAdapter.notifyDataSetChanged();
                         return true;

@@ -1,8 +1,6 @@
 package pl.edu.pja.s13868.miniproject1.ui.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -12,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import pl.edu.pja.s13868.miniproject1.R;
-import pl.edu.pja.s13868.miniproject1.domain.helpers.SingletonRegistry;
+import pl.edu.pja.s13868.miniproject1.SingletonRegistry;
 import pl.edu.pja.s13868.miniproject1.domain.model.product.Product;
 
 public class EditActivity extends AppCompatActivity {
