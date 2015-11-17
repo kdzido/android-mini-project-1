@@ -5,3 +5,11 @@
 .DS_Store
 /build
 /captures
+
+# IntelliJ IDEA specific #
+*.iml
+*.ipr
+*.iws
+*.eml
+.idea/
+
