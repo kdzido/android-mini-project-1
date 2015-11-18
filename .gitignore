@@ -7,9 +7,9 @@
 /captures
 
 # IntelliJ IDEA specific #
-*.iml
-*.ipr
-*.iws
-*.eml
-.idea/
+#*.iml
+#*.ipr
+#*.iws
+#*.eml
+#.idea/
 
