@@ -20,7 +20,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Font color"
+        android:text="Background color"
         android:id="@+id/fontColorTextView"
         android:layout_below="@+id/optionsActivityTitleTextView"
         android:layout_alignParentLeft="true"
@@ -30,7 +30,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Font size"
+        android:text="Other preference"
         android:id="@+id/fontSizeTextView"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
