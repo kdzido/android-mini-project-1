@@ -3,19 +3,20 @@ package pl.edu.pja.s13868.miniproject1.domain.persistence;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import pl.edu.pja.s13868.miniproject1.SingletonRegistry;
 import pl.edu.pja.s13868.miniproject1.domain.model.product.Product;
 
 
 public class DataManager {
 
     private SharedPreferences mSharedPreferences;
-    private static final String KEY_MAIN_TUTORIAL = "KEY_MAIN_TUTORIAL";
+    private static final String KEY_FONT_SIZE = "KEY_FONT_SIZE";
+    private static final int KEY_FONT_SIZE_DEFAULT = 14;
+    private static final String KEY_FONT_COLOR = "KEY_FONT_COLOR";
+    private static final String KEY_FONT_COLOR_DEFAULT = "#000";
     private static final boolean KEY_DEFAULT = false;
 
     private Handler mHandler;
@@ -29,12 +30,20 @@ public class DataManager {
         mProductList = new ArrayList<>(SingletonRegistry.INSTANCE.productRepositorySingleton().listAllProducts());
     }
 
-    public void saveMainTutorial() {
-        mSharedPreferences.edit().putBoolean(KEY_MAIN_TUTORIAL, true).apply();
+    public void saveFontSize(int pFontSize) {
+        mSharedPreferences.edit().putInt(KEY_FONT_SIZE, pFontSize).apply();
     }
 
-    public boolean getMainTutorial() {
-        return mSharedPreferences.getBoolean(KEY_MAIN_TUTORIAL, KEY_DEFAULT);
+    public int getFontSize() {
+        return mSharedPreferences.getInt(KEY_FONT_SIZE, KEY_FONT_SIZE_DEFAULT);
+    }
+
+    public void saveFontColor(String pFontColor) {
+        mSharedPreferences.edit().putString(KEY_FONT_COLOR, pFontColor).apply();
+    }
+
+    public String getFontColor() {
+        return mSharedPreferences.getString(KEY_FONT_COLOR, KEY_FONT_COLOR_DEFAULT);
     }
 
     public void products(final DataHandler<Product> pDataHandler) {
@@ -88,7 +97,6 @@ public class DataManager {
         mThreadTask.executeTask(new Runnable() {
             @Override
             public void run() {
-                Log.d("pp", "===> product: " + pProduct);
                 SingletonRegistry.INSTANCE.productRepositorySingleton().store(pProduct);
             }
         });

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,7 +16,6 @@ import java.util.List;
 
 import pl.edu.pja.s13868.miniproject1.EduApplication;
 import pl.edu.pja.s13868.miniproject1.R;
-import pl.edu.pja.s13868.miniproject1.SingletonRegistry;
 import pl.edu.pja.s13868.miniproject1.domain.model.product.Product;
 import pl.edu.pja.s13868.miniproject1.domain.persistence.DataHandler;
 import pl.edu.pja.s13868.miniproject1.ui.adapter.ProductArrayAdapter;

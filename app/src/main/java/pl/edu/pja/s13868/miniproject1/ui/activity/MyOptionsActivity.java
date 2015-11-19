@@ -4,7 +4,12 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import pl.edu.pja.s13868.miniproject1.EduApplication;
 import pl.edu.pja.s13868.miniproject1.R;
 
 /**
@@ -14,28 +19,36 @@ import pl.edu.pja.s13868.miniproject1.R;
  */
 public class MyOptionsActivity extends AppCompatActivity {
 
-    private static final String MY_PREFS_NAME = "mini-project-1-prefs" ;
-
-    public static final String BG_COLOR_PREF = "background-color";
-    public static final String OTHER_PREF = "other-pref";
-
-    public static final String SAMPLE_VALUE = "value_1";
+    private EditText mFontSize;
+    private EditText mFontColor;
+    private Button mSave;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_options);
-
-        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-        editor.putString(BG_COLOR_PREF, SAMPLE_VALUE);
-        editor.commit();
-        Log.i("tag", "Stored shared pref '" + BG_COLOR_PREF + "':" + SAMPLE_VALUE);
-
-        SharedPreferences settings = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        String value = settings.getString(BG_COLOR_PREF, null);
-        Log.i("tag", "Loaded shared pref '" + BG_COLOR_PREF + "':" + value);
-
+        initUI();
+        setupLogic();
     }
 
+    private void initUI(){
+        mFontSize = (EditText) findViewById(R.id.font_size);
+        mFontColor = (EditText) findViewById(R.id.font_color);
+        mSave = (Button) findViewById(R.id.save);
+    }
+
+    private void setupLogic(){
+        mFontSize.setText(String.valueOf(EduApplication.getDataManager().getFontSize()));
+        mFontColor.setText(EduApplication.getDataManager().getFontColor());
+
+        mSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EduApplication.getDataManager().saveFontSize(Integer.valueOf(mFontSize.getText().toString()));
+                EduApplication.getDataManager().saveFontColor(mFontColor.getText().toString());
+                Toast.makeText(getApplicationContext(), "New settintgs saved", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 }

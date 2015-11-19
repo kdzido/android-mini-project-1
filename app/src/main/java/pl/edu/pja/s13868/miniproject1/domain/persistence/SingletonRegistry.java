@@ -1,4 +1,4 @@
-package pl.edu.pja.s13868.miniproject1;
+package pl.edu.pja.s13868.miniproject1.domain.persistence;
 
 import pl.edu.pja.s13868.miniproject1.domain.model.product.ProductRepository;
 import pl.edu.pja.s13868.miniproject1.domain.persistence.fake.FakeProductRepositoryImpl;
