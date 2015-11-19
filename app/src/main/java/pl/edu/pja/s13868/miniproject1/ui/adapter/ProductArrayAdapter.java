@@ -2,6 +2,7 @@ package pl.edu.pja.s13868.miniproject1.ui.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,14 +25,14 @@ import pl.edu.pja.s13868.miniproject1.domain.model.product.Product;
  * @author Krzysztof Dzido <s13868@pjwstka.edu.pl>
  */
 public class ProductArrayAdapter extends ArrayAdapter<Product> {
-
-    private List<Product> products = new ArrayList<>();
+    private LayoutInflater mInflater;
+    private List<Product> mProducts;
     private OnOptionItemClick mOnOptionItemClick;
 
-    public ProductArrayAdapter(final Context context, final List<Product> productList) {
-        super(context, R.layout.product_list_row, productList);
-
-        this.products.addAll(productList);
+    public ProductArrayAdapter(final Context pContext, final List<Product> pProductList) {
+        super(pContext, 0, pProductList);
+        mProducts = pProductList;
+        mInflater = (LayoutInflater) pContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     private class ViewHolder {
@@ -44,17 +45,23 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
         mOnOptionItemClick = pOnOptionItemClick;
     }
 
-    public void deleteProductById(final String pProductId){
+    public void updateData(List<Product> pProductList) {
+        mProducts.clear();
+        mProducts.addAll(pProductList);
+        notifyDataSetChanged();
+    }
+
+    public void deleteProductById(final String pProductId) {
         Set<String> productsToDelete = new HashSet<>();
 
-        for(Product product: products){
+        for (Product product : mProducts) {
             if (product.getId().equals(pProductId)) {
                 productsToDelete.add(product.getId());
             }
         }
 
         Product toDelete = null;
-        for (Product p : products) {
+        for (Product p : mProducts) {
             if (p.getId().equals(pProductId)) {
                 toDelete = p;
                 break;
@@ -62,7 +69,7 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
         }
 
         // removes all occurrences of the product on the list (defensive)
-        while(products.remove(toDelete)) {
+        while (mProducts.remove(toDelete)) {
             remove(toDelete);
         }
 
@@ -74,8 +81,7 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
         ViewHolder holder;
 
         if (convertView == null) {
-            LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
-            convertView = inflater.inflate(R.layout.product_list_row, null);
+            convertView = mInflater.inflate(R.layout.product_list_row, null);
 
             holder = new ViewHolder();
             holder.productBought = (CheckBox) convertView.findViewById(R.id.productBought);
@@ -87,7 +93,7 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        final Product product = products.get(position);
+        final Product product = mProducts.get(position);
         holder.productName.setText(product.getName());
         holder.productBought.setChecked(product.isBought());
         holder.mImageView.setOnClickListener(new View.OnClickListener() {

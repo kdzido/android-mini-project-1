@@ -1,8 +1,10 @@
 package pl.edu.pja.s13868.miniproject1.ui.activity;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,17 +15,20 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.edu.pja.s13868.miniproject1.EduApplication;
 import pl.edu.pja.s13868.miniproject1.R;
 import pl.edu.pja.s13868.miniproject1.SingletonRegistry;
 import pl.edu.pja.s13868.miniproject1.domain.model.product.Product;
+import pl.edu.pja.s13868.miniproject1.domain.persistence.DataHandler;
 import pl.edu.pja.s13868.miniproject1.ui.adapter.ProductArrayAdapter;
 
 /**
  * @author Krzysztof Dzido <s13868@pjwstka.edu.pl>
  */
-public class MyListActivity extends AppCompatActivity implements ProductArrayAdapter.OnOptionItemClick, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+public class MyListActivity extends AppCompatActivity implements View.OnClickListener, ProductArrayAdapter.OnOptionItemClick, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
-    private ProductArrayAdapter productAdapter;
+    private ProductArrayAdapter mProductArrayAdapter;
+    private FloatingActionButton mFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +38,14 @@ public class MyListActivity extends AppCompatActivity implements ProductArrayAda
     }
 
     private void initUI() {
-        List<Product> productItems = new ArrayList<>(SingletonRegistry.INSTANCE.productRepositorySingleton().listAllProducts());
-        this.productAdapter = new ProductArrayAdapter(this, productItems);
-        this.productAdapter.setOnOptionItemClick(this);
+        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mFab.setOnClickListener(this);
+
+        mProductArrayAdapter = new ProductArrayAdapter(getApplicationContext(), new ArrayList<Product>());
+        mProductArrayAdapter.setOnOptionItemClick(this);
 
         ListView productListView = (ListView) findViewById(R.id.listView);
-        productListView.setAdapter(this.productAdapter);
+        productListView.setAdapter(mProductArrayAdapter);
         productListView.setOnItemClickListener(this);
         productListView.setOnItemLongClickListener(this);
     }
@@ -67,9 +74,8 @@ public class MyListActivity extends AppCompatActivity implements ProductArrayAda
                         startActivity(intent);
                         return true;
                     case R.id.action_delete:
-                        SingletonRegistry.INSTANCE.productRepositorySingleton().delete(pProduct.getId());
-                        productAdapter.deleteProductById(pProduct.getId());
-                        productAdapter.notifyDataSetChanged();
+                        EduApplication.getDataManager().deleteProduct(pProduct.getId());
+                        mProductArrayAdapter.deleteProductById(pProduct.getId());
                         return true;
                     default:
                         return false;
@@ -79,12 +85,27 @@ public class MyListActivity extends AppCompatActivity implements ProductArrayAda
 
         popupMenu.inflate(R.menu.popup_menu);
         popupMenu.show();
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        productAdapter.notifyDataSetChanged();
+        EduApplication.getDataManager().products(new DataHandler<Product>() {
+            @Override
+            public void onSuccess(List<Product> pDataList) {
+                if (pDataList != null && pDataList.size() > 0) {
+                    mProductArrayAdapter.updateData(pDataList);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.fab:
+                startActivity(new Intent(getApplicationContext(), EditActivity.class));
+                break;
+        }
     }
 }

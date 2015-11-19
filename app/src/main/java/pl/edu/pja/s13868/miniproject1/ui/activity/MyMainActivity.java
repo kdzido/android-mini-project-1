@@ -3,7 +3,6 @@ package pl.edu.pja.s13868.miniproject1.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -21,7 +20,6 @@ public class MyMainActivity extends AppCompatActivity implements OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_main);
-        initToolbar();
         initUI();
     }
 
@@ -45,10 +43,5 @@ public class MyMainActivity extends AppCompatActivity implements OnClickListener
         // Options button
         Button optionsButton = (Button) findViewById(R.id.optionsButton);
         optionsButton.setOnClickListener(this);
-    }
-
-    private void initToolbar(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
     }
 }

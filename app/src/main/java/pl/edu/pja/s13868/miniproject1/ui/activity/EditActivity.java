@@ -1,5 +1,6 @@
 package pl.edu.pja.s13868.miniproject1.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,11 +10,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Random;
+
+import pl.edu.pja.s13868.miniproject1.EduApplication;
 import pl.edu.pja.s13868.miniproject1.R;
 import pl.edu.pja.s13868.miniproject1.SingletonRegistry;
 import pl.edu.pja.s13868.miniproject1.domain.model.product.Product;
+import pl.edu.pja.s13868.miniproject1.domain.persistence.DataHandler;
 
 public class EditActivity extends AppCompatActivity {
+    public static final int PRODUCT_REQUEST = 1;
     public final static String TAG_PRODUCT = "TAG_PRODUCT";
 
     private Product mProduct;
@@ -23,39 +29,47 @@ public class EditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
-        initToolbar();
         initUI();
     }
 
-    private void initUI(){
+    private void initUI() {
         Button save = (Button) findViewById(R.id.save);
         final EditText editText = (EditText) findViewById(R.id.product_edit);
 
 
         mProduct = (Product) getIntent().getSerializableExtra(TAG_PRODUCT);
-        Log.d("pp", "===> product:" + mProduct.toString());
 
-        if(mProduct != null){
+        if (mProduct != null) {
             editText.setText(mProduct.getName());
         }
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mProduct != null){
-                    Product p = SingletonRegistry.INSTANCE.productRepositorySingleton().findById(mProduct.getId());
-                    p.changeName(editText.getText().toString());
-                    SingletonRegistry.INSTANCE.productRepositorySingleton().store(p);
-                    Toast.makeText(getApplicationContext(), "Product was modified", Toast.LENGTH_LONG).show();
-                    finish();
+                if (mProduct != null) {
+                    EduApplication.getDataManager().product(mProduct.getId(), new DataHandler<Product>() {
+                        @Override
+                        public void onSuccess(Product pProduct) {
+                            pProduct.changeName(editText.getText().toString());
+
+                            EduApplication.getDataManager().modifyProduct(pProduct);
+                            Toast.makeText(getApplicationContext(), "Product was persisted", Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                    });
+                } else {
+                    if (!editText.getText().toString().isEmpty()) {
+                        Random ran = new Random();
+                        String x = Integer.toString(ran.nextInt(100));
+                        Product product = new Product(x, editText.getText().toString(), false);
+
+                        EduApplication.getDataManager().addProduct(product);
+                        finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Valid product name is required", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
     }
-
-    private void initToolbar(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-    }
-
 }
