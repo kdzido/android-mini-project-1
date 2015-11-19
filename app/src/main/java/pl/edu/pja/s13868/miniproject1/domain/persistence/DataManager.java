@@ -3,6 +3,7 @@ package pl.edu.pja.s13868.miniproject1.domain.persistence;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +88,7 @@ public class DataManager {
         mThreadTask.executeTask(new Runnable() {
             @Override
             public void run() {
+                Log.d("pp", "===> product: " + pProduct);
                 SingletonRegistry.INSTANCE.productRepositorySingleton().store(pProduct);
             }
         });

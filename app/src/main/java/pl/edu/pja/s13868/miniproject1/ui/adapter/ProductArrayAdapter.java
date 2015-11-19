@@ -1,8 +1,7 @@
 package pl.edu.pja.s13868.miniproject1.ui.adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +9,13 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import pl.edu.pja.s13868.miniproject1.EduApplication;
 import pl.edu.pja.s13868.miniproject1.R;
 import pl.edu.pja.s13868.miniproject1.domain.model.product.Product;
 
@@ -78,7 +78,7 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        final ViewHolder holder;
 
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.product_list_row, null);
@@ -94,13 +94,24 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
         }
 
         final Product product = mProducts.get(position);
+
+        holder.productBought.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnOptionItemClick != null) {
+                    final boolean isChecked = holder.productBought.isChecked();
+                    mOnOptionItemClick.OnCheckedListner(isChecked, product);
+                }
+            }
+        });
+
         holder.productName.setText(product.getName());
         holder.productBought.setChecked(product.isBought());
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mOnOptionItemClick != null) {
-                    mOnOptionItemClick.OnOptionClick(v, product);
+                    mOnOptionItemClick.OnOptionClickListener(v, product);
                 }
             }
         });
@@ -109,6 +120,7 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
     }
 
     public interface OnOptionItemClick {
-        void OnOptionClick(View pView, Product pProduct);
+        void OnOptionClickListener(View pView, Product pProduct);
+        void OnCheckedListner(boolean pIsChecked, Product pProduct);
     }
 }

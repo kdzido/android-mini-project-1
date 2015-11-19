@@ -62,7 +62,7 @@ public class MyListActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void OnOptionClick(View pView, final Product pProduct) {
+    public void OnOptionClickListener(View pView, final Product pProduct) {
         PopupMenu popupMenu = new PopupMenu(this, pView);
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
@@ -88,6 +88,21 @@ public class MyListActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
+    public void OnCheckedListner(final boolean pIsChecked, Product pProduct) {
+        EduApplication.getDataManager().product(pProduct.getId(), new DataHandler<Product>() {
+            @Override
+            public void onSuccess(Product pObject) {
+                if (pIsChecked) {
+                    pObject.markAsBought();
+                } else {
+                    pObject.markAsNotBought();
+                }
+                EduApplication.getDataManager().modifyProduct(pObject);
+            }
+        });
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         EduApplication.getDataManager().products(new DataHandler<Product>() {
@@ -102,7 +117,7 @@ public class MyListActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.fab:
                 startActivity(new Intent(getApplicationContext(), EditActivity.class));
                 break;
