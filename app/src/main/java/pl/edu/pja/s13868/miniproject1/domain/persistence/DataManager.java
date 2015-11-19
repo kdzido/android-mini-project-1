@@ -16,7 +16,7 @@ public class DataManager {
     private static final String KEY_FONT_SIZE = "KEY_FONT_SIZE";
     private static final int KEY_FONT_SIZE_DEFAULT = 14;
     private static final String KEY_FONT_COLOR = "KEY_FONT_COLOR";
-    private static final String KEY_FONT_COLOR_DEFAULT = "#000";
+    private static final String KEY_FONT_COLOR_DEFAULT = "#000000";
     private static final boolean KEY_DEFAULT = false;
 
     private Handler mHandler;
