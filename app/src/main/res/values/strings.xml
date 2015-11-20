@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MiniProject-1</string>
+    <string name="app_desc">Shopping List App</string>
     <string name="action_settings">Settings</string>
 
     <!-- Strings related to Settings -->
@@ -13,7 +14,7 @@
     </string>
 
     <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
+    <string name="pref_default_display_name">Krzysztof Dzido</string>
 
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
     <string-array name="pref_example_list_titles">
@@ -50,6 +51,7 @@
 
     <string name="pref_title_system_sync_settings">System sync settings</string>
     <string name="add_product_hint">Product name</string>
+
     <!-- Example settings for Notifications -->
     <string name="pref_header_notifications">Notifications</string>
 
@@ -60,12 +62,17 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
 
+    <!-- product list -->
     <string name="title_activity_product_list">Product list</string>
-    <string name="title_activity_options">Options</string>
     <string name="title_activity_edit">Edit product</string>
-    <string name="title_activity_test">TestActivity</string>
-
     <string name="save_product_button">Save</string>
+
+     <!-- options -->
+    <string name="title_activity_options">Options</string>
     <string name="save_options_button">Save</string>
+
+    <string name="font_size_text">Font size</string>
+    <string name="font_color_text">Font color</string>
+
 
 </resources>

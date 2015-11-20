@@ -11,27 +11,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Font size"
+        android:text="@string/font_size_text"
         android:textColor="#000000"/>
 
     <EditText
         android:id="@+id/font_size"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Font size"
+        android:hint="@string/font_size_text"
         android:textColor="#000000"/>
 
     <TextView
         android:id="@+id/fontSizeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Font color"
+        android:text="@string/font_color_text"
         android:textColor="#000000"/>
     <EditText
         android:id="@+id/font_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="#000000"
+        android:hint="@string/font_color_text"
         android:textColor="#000000"/>
 
     <Button
