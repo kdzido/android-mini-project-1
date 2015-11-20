@@ -54,12 +54,12 @@ public class EditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (mProduct != null) {
-                    EduApplication.getDataManager().product(mProduct.getId(), new DataHandler<Product>() {
+                    EduApplication.dataManagerSingleton().product(mProduct.getId(), new DataHandler<Product>() {
                         @Override
                         public void onSuccess(Product pProduct) {
                             pProduct.changeName(editText.getText().toString());
 
-                            EduApplication.getDataManager().storeProduct(pProduct);
+                            EduApplication.dataManagerSingleton().storeProduct(pProduct);
                             Toast.makeText(getApplicationContext(), "Product was persisted", Toast.LENGTH_LONG).show();
                             finish();
                         }
@@ -73,7 +73,7 @@ public class EditActivity extends AppCompatActivity {
 
                         product = datasource.createProduct(product);
 
-                        EduApplication.getDataManager().storeProduct(product);
+                        EduApplication.dataManagerSingleton().storeProduct(product);
                         finish();
 
                     } else {

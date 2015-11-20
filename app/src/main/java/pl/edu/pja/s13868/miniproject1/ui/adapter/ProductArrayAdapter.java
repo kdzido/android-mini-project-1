@@ -2,7 +2,6 @@ package pl.edu.pja.s13868.miniproject1.ui.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.HashSet;
 import java.util.List;
@@ -87,8 +85,8 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
             holder = new ViewHolder();
             holder.productBought = (CheckBox) convertView.findViewById(R.id.productBought);
             holder.productName = (TextView) convertView.findViewById(R.id.productName);
-            holder.productName.setTextSize((float) EduApplication.getDataManager().getFontSize());
-            holder.productName.setTextColor(Color.parseColor(EduApplication.getDataManager().getFontColor()));
+            holder.productName.setTextSize((float) EduApplication.dataManagerSingleton().getFontSize());
+            holder.productName.setTextColor(Color.parseColor(EduApplication.dataManagerSingleton().getFontColor()));
             holder.mImageView = (ImageView) convertView.findViewById(R.id.options);
             convertView.setTag(holder);
 

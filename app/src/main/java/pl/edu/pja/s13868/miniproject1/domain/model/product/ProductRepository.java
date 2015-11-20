@@ -20,7 +20,7 @@ public interface ProductRepository {
     /**
      * Lists all products in the persistent store.
      *
-     * @return the all products collection
+     * @return the all products collection, or empty collection
      */
     Collection<Product> listAllProducts();
 

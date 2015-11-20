@@ -6,6 +6,7 @@ import android.os.Handler;
 
 import java.util.ArrayList;
 
+import pl.edu.pja.s13868.miniproject1.EduApplication;
 import pl.edu.pja.s13868.miniproject1.domain.model.product.Product;
 
 /**
@@ -78,7 +79,7 @@ public class DataManager {
                     @Override
                     public void run() {
                         pDataHandler.onSuccess(
-                                new ArrayList<>(SingletonRegistry.INSTANCE.productRepositorySingleton().listAllProducts()));
+                                new ArrayList<>(EduApplication.productRepositorySingleton().listAllProducts()));
                     }
                 });
             }
@@ -95,7 +96,7 @@ public class DataManager {
         mThreadTask.executeTask(new Runnable() {
             @Override
             public void run() {
-                final Product product = SingletonRegistry.INSTANCE.productRepositorySingleton().findById(pProductId);
+                final Product product = EduApplication.productRepositorySingleton().findById(pProductId);
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -115,7 +116,7 @@ public class DataManager {
         mThreadTask.executeTask(new Runnable() {
             @Override
             public void run() {
-                SingletonRegistry.INSTANCE.productRepositorySingleton().delete(pProductId);
+                EduApplication.productRepositorySingleton().delete(pProductId);
             }
         });
     }
@@ -129,7 +130,7 @@ public class DataManager {
         mThreadTask.executeTask(new Runnable() {
             @Override
             public void run() {
-                SingletonRegistry.INSTANCE.productRepositorySingleton().store(pProduct);
+                EduApplication.productRepositorySingleton().store(pProduct);
             }
         });
     }

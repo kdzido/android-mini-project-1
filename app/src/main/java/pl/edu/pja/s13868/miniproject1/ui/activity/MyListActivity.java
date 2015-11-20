@@ -73,7 +73,7 @@ public class MyListActivity extends AppCompatActivity implements View.OnClickLis
                         startActivity(intent);
                         return true;
                     case R.id.action_delete:
-                        EduApplication.getDataManager().deleteProduct(pProduct.getId());
+                        EduApplication.dataManagerSingleton().deleteProduct(pProduct.getId());
                         mProductArrayAdapter.deleteProductById(pProduct.getId());
                         return true;
                     default:
@@ -88,7 +88,7 @@ public class MyListActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void OnCheckedListner(final boolean pIsChecked, Product pProduct) {
-        EduApplication.getDataManager().product(pProduct.getId(), new DataHandler<Product>() {
+        EduApplication.dataManagerSingleton().product(pProduct.getId(), new DataHandler<Product>() {
             @Override
             public void onSuccess(Product pObject) {
                 // TODO validate nulls
@@ -97,7 +97,7 @@ public class MyListActivity extends AppCompatActivity implements View.OnClickLis
                 } else {
                     pObject.markAsNotBought();
                 }
-                EduApplication.getDataManager().storeProduct(pObject);
+                EduApplication.dataManagerSingleton().storeProduct(pObject);
             }
         });
     }
@@ -105,7 +105,7 @@ public class MyListActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onResume() {
         super.onResume();
-        EduApplication.getDataManager().products(new DataHandler<Product>() {
+        EduApplication.dataManagerSingleton().products(new DataHandler<Product>() {
             @Override
             public void onSuccess(List<Product> pDataList) {
                 if (pDataList != null && pDataList.size() > 0) {

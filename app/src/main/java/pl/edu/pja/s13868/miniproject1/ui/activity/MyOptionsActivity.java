@@ -1,9 +1,7 @@
 package pl.edu.pja.s13868.miniproject1.ui.activity;
 
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,14 +37,14 @@ public class MyOptionsActivity extends AppCompatActivity {
     }
 
     private void setupLogic(){
-        mFontSize.setText(String.valueOf(EduApplication.getDataManager().getFontSize()));
-        mFontColor.setText(EduApplication.getDataManager().getFontColor());
+        mFontSize.setText(String.valueOf(EduApplication.dataManagerSingleton().getFontSize()));
+        mFontColor.setText(EduApplication.dataManagerSingleton().getFontColor());
 
         mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EduApplication.getDataManager().saveFontSize(Integer.valueOf(mFontSize.getText().toString()));
-                EduApplication.getDataManager().saveFontColor(mFontColor.getText().toString());
+                EduApplication.dataManagerSingleton().saveFontSize(Integer.valueOf(mFontSize.getText().toString()));
+                EduApplication.dataManagerSingleton().saveFontColor(mFontColor.getText().toString());
                 Toast.makeText(getApplicationContext(), "New settintgs saved", Toast.LENGTH_LONG).show();
             }
         });
