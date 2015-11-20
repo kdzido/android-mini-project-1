@@ -13,19 +13,26 @@ import pl.edu.pja.s13868.miniproject1.EduApplication;
 import pl.edu.pja.s13868.miniproject1.R;
 import pl.edu.pja.s13868.miniproject1.domain.model.product.Product;
 import pl.edu.pja.s13868.miniproject1.domain.persistence.DataHandler;
+import pl.edu.pja.s13868.miniproject1.domain.persistence.database.ProductsDataSource;
 
 public class EditActivity extends AppCompatActivity {
     public static final int PRODUCT_REQUEST = 1;
     public final static String TAG_PRODUCT = "TAG_PRODUCT";
 
     private Product mProduct;
-
+    private ProductsDataSource datasource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
         initUI();
+        setupLogic();
+    }
+
+    public void setupLogic() {
+        datasource = new ProductsDataSource(this);
+        datasource.open();
     }
 
     private void initUI() {
@@ -59,6 +66,8 @@ public class EditActivity extends AppCompatActivity {
                         String x = Integer.toString(ran.nextInt(100));
                         Product product = new Product(x, editText.getText().toString(), false);
 
+                        product = datasource.createProduct(product);
+
                         EduApplication.getDataManager().addProduct(product);
                         finish();
                     } else {
@@ -67,5 +76,17 @@ public class EditActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        datasource.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        datasource.close();
+        super.onPause();
     }
 }
