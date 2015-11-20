@@ -34,12 +34,6 @@
             android:label="@string/title_activity_edit">
         </activity>
 
-        <!--TODO not used -->
-        <activity
-            android:parentActivityName=".ui.activity.MyMainActivity"
-            android:name=".ui.activity.preference.SettingsActivity"
-            android:label="@string/title_activity_options" >
-        </activity>
     </application>
 
 </manifest>
