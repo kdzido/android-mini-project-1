@@ -6,7 +6,7 @@ import android.content.Context;
 import pl.edu.pja.s13868.miniproject1.domain.persistence.DataManager;
 
 /**
- * Created by zdzido on 19.11.2015.
+ * @author Krzysztof Dzido <s13868@pjwstka.edu.pl>
  */
 public class EduApplication extends Application {
     private static Context sContext;
