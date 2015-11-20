@@ -20,7 +20,8 @@
         </activity>
         <activity
             android:parentActivityName=".ui.activity.MyMainActivity"
-            android:name=".ui.activity.MyOptionsActivity" >
+            android:name=".ui.activity.MyOptionsActivity"
+            android:label="@string/title_activity_options">
         </activity>
         <activity
             android:parentActivityName=".ui.activity.MyMainActivity"
@@ -28,14 +29,16 @@
             android:label="@string/title_activity_product_list" >
         </activity>
         <activity
-            android:parentActivityName=".ui.activity.MyMainActivity"
-            android:name=".ui.activity.preference.SettingsActivity"
-            android:label="@string/title_activity_options" >
-        </activity>
-        <activity
             android:parentActivityName=".ui.activity.MyListActivity"
             android:name=".ui.activity.EditActivity"
             android:label="@string/title_activity_edit">
+        </activity>
+
+        <!--TODO not used -->
+        <activity
+            android:parentActivityName=".ui.activity.MyMainActivity"
+            android:name=".ui.activity.preference.SettingsActivity"
+            android:label="@string/title_activity_options" >
         </activity>
     </application>
 

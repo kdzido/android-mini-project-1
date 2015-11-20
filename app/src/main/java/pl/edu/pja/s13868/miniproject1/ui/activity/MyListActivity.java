@@ -32,6 +32,7 @@ public class MyListActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_list);
+
         initUI();
     }
 
@@ -90,6 +91,7 @@ public class MyListActivity extends AppCompatActivity implements View.OnClickLis
         EduApplication.getDataManager().product(pProduct.getId(), new DataHandler<Product>() {
             @Override
             public void onSuccess(Product pObject) {
+                // TODO validate nulls
                 if (pIsChecked) {
                     pObject.markAsBought();
                 } else {

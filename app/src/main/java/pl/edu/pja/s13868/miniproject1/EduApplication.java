@@ -18,7 +18,7 @@ public class EduApplication extends Application {
         sContext = getApplicationContext();
     }
 
-    public static DataManager getDataManager() {
+    public static synchronized DataManager getDataManager() {
         if (sDataManager == null) {
             synchronized (EduApplication.class) {
                 if (sDataManager == null) {

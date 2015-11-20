@@ -15,8 +15,10 @@ import pl.edu.pja.s13868.miniproject1.domain.model.product.Product;
 import pl.edu.pja.s13868.miniproject1.domain.persistence.DataHandler;
 import pl.edu.pja.s13868.miniproject1.domain.persistence.database.ProductsDataSource;
 
+/**
+ * @author Krzysztof Dzido <s13868@pjwstka.edu.pl>
+ */
 public class EditActivity extends AppCompatActivity {
-    public static final int PRODUCT_REQUEST = 1;
     public final static String TAG_PRODUCT = "TAG_PRODUCT";
 
     private Product mProduct;

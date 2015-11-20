@@ -9,24 +9,30 @@ import java.util.List;
 
 import pl.edu.pja.s13868.miniproject1.domain.model.product.Product;
 
-
+/**
+ * Manages persistent data
+ *
+ * @author Krzysztof Dzido <s13868@pjwstka.edu.pl>
+ */
 public class DataManager {
 
-    private SharedPreferences mSharedPreferences;
     private static final String KEY_FONT_SIZE = "KEY_FONT_SIZE";
     private static final int KEY_FONT_SIZE_DEFAULT = 14;
     private static final String KEY_FONT_COLOR = "KEY_FONT_COLOR";
     private static final String KEY_FONT_COLOR_DEFAULT = "#000000";
     private static final boolean KEY_DEFAULT = false;
 
+    private SharedPreferences mSharedPreferences;
+
     private Handler mHandler;
     private ThreadTask mThreadTask;
     private List<Product> mProductList;
 
-    public DataManager(Context pContext) {
+
+    public DataManager(final Context pContext) {
         mHandler = new Handler();
         mSharedPreferences = pContext.getSharedPreferences(DataManager.class.getCanonicalName(), Context.MODE_PRIVATE);
-        mThreadTask = new ThreadTask();
+        mThreadTask = ThreadTask.getInstance();
         mProductList = new ArrayList<>(SingletonRegistry.INSTANCE.productRepositorySingleton().listAllProducts());
     }
 
@@ -45,6 +51,7 @@ public class DataManager {
     public String getFontColor() {
         return mSharedPreferences.getString(KEY_FONT_COLOR, KEY_FONT_COLOR_DEFAULT);
     }
+
 
     public void products(final DataHandler<Product> pDataHandler) {
         mThreadTask.executeTask(new Runnable() {
