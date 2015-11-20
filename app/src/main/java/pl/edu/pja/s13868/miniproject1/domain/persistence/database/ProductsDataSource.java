@@ -17,15 +17,15 @@ import pl.edu.pja.s13868.miniproject1.domain.model.product.Product;
 public class ProductsDataSource {
     // Database fields
     private SQLiteDatabase database;
-    private DbSQLiteHelper dbHelper;
+    private ProductsDatabaseHelper dbHelper;
     private String[] allColumns = {
-            DbSQLiteHelper.COLUMN_ID,
-            DbSQLiteHelper.COLUMN_PRODUCT_NAME,
-            DbSQLiteHelper.COLUMN_BOUGHT
+            ProductsDatabaseHelper.COLUMN_ID,
+            ProductsDatabaseHelper.COLUMN_PRODUCT_NAME,
+            ProductsDatabaseHelper.COLUMN_BOUGHT
     };
 
     public ProductsDataSource(Context context) {
-        dbHelper = new DbSQLiteHelper(context);
+        dbHelper = ProductsDatabaseHelper.getInstance(context);
     }
 
     public void open() throws SQLException {
@@ -38,14 +38,14 @@ public class ProductsDataSource {
 
     public Product createProduct(Product pProduct) {
         ContentValues values = new ContentValues();
-        values.put(DbSQLiteHelper.COLUMN_PRODUCT_NAME, pProduct.getName());
-        values.put(DbSQLiteHelper.COLUMN_BOUGHT, pProduct.isBought() ? 1 : 0);
-        long insertId = database.insert(DbSQLiteHelper.TABLE_PRODUCTS, null, values);
+        values.put(ProductsDatabaseHelper.COLUMN_PRODUCT_NAME, pProduct.getName());
+        values.put(ProductsDatabaseHelper.COLUMN_BOUGHT, pProduct.isBought() ? 1 : 0);
+        long insertId = database.insert(ProductsDatabaseHelper.TABLE_PRODUCTS, null, values);
 
         Cursor cursor = database.query(
-                DbSQLiteHelper.TABLE_PRODUCTS,
+                ProductsDatabaseHelper.TABLE_PRODUCTS,
                 allColumns,
-                DbSQLiteHelper.COLUMN_ID + " = " + insertId,
+                ProductsDatabaseHelper.COLUMN_ID + " = " + insertId,
                 null, null, null, null);
 
         cursor.moveToFirst();
@@ -59,13 +59,13 @@ public class ProductsDataSource {
         long id = Long.valueOf(pProduct.getId());
         System.out.println("Product deleted with id: " + id);
 
-        database.delete(DbSQLiteHelper.TABLE_PRODUCTS, DbSQLiteHelper.COLUMN_ID + " = " + id, null);
+        database.delete(ProductsDatabaseHelper.TABLE_PRODUCTS, ProductsDatabaseHelper.COLUMN_ID + " = " + id, null);
     }
 
     public List<Product> getAllComments() {
         List<Product> products = new ArrayList<Product>();
 
-        Cursor cursor = database.query(DbSQLiteHelper.TABLE_PRODUCTS,
+        Cursor cursor = database.query(ProductsDatabaseHelper.TABLE_PRODUCTS,
                 allColumns, null, null, null, null, null);
 
         cursor.moveToFirst();

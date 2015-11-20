@@ -20,6 +20,8 @@ import pl.edu.pja.s13868.miniproject1.domain.model.product.ProductRepository;
  */
 public class SqliteProductRepositoryImpl extends SQLiteOpenHelper implements ProductRepository {
 
+    private static SqliteProductRepositoryImpl instance;
+
     public static final String DATABASE_NAME = "mini-project1-db";
     public static final int DATABASE_VERSION = 1;
     public static final String PRODUCT_TABLE_NAME = "product";
@@ -33,8 +35,21 @@ public class SqliteProductRepositoryImpl extends SQLiteOpenHelper implements Pro
                     "version INTEGER );";
 
 
+    /**
+     * The singleton factory method.
+     *
+     * @param context the context
+     * @return the product repository singleton
+     */
+    public static synchronized SqliteProductRepositoryImpl getInstance(final Context context) {
+        if (SqliteProductRepositoryImpl.instance == null) {
+            SqliteProductRepositoryImpl.instance = new SqliteProductRepositoryImpl(context.getApplicationContext());
+        }
+        return SqliteProductRepositoryImpl.instance;
+    }
 
-    public SqliteProductRepositoryImpl(final Context context) {
+
+    private SqliteProductRepositoryImpl(final Context context) {
         super(context.getApplicationContext(), DATABASE_NAME, null, DATABASE_VERSION);
     }
 
