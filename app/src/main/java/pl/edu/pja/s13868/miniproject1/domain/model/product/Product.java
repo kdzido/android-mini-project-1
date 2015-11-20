@@ -13,9 +13,6 @@ public class Product implements Serializable{
     private String name;
     private boolean bought;
 
-    public Product() {
-    }
-
     /**
      *
      * @param id the unique product ID, once assigned it cannot be changed

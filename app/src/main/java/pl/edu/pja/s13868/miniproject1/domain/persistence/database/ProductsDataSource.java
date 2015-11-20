@@ -42,11 +42,14 @@ public class ProductsDataSource {
         values.put(DbSQLiteHelper.COLUMN_BOUGHT, pProduct.isBought() ? 1 : 0);
         long insertId = database.insert(DbSQLiteHelper.TABLE_PRODUCTS, null, values);
 
-        Cursor cursor = database.query(DbSQLiteHelper.TABLE_PRODUCTS,
-                allColumns, DbSQLiteHelper.COLUMN_ID + " = " + insertId, null,
-                null, null, null);
+        Cursor cursor = database.query(
+                DbSQLiteHelper.TABLE_PRODUCTS,
+                allColumns,
+                DbSQLiteHelper.COLUMN_ID + " = " + insertId,
+                null, null, null, null);
 
         cursor.moveToFirst();
+
         Product product = cursorToProduct(cursor);
         cursor.close();
         return product;
@@ -55,8 +58,8 @@ public class ProductsDataSource {
     public void deleteProduct(Product pProduct) {
         long id = Long.valueOf(pProduct.getId());
         System.out.println("Product deleted with id: " + id);
-        database.delete(DbSQLiteHelper.TABLE_PRODUCTS, DbSQLiteHelper.COLUMN_ID
-                + " = " + id, null);
+
+        database.delete(DbSQLiteHelper.TABLE_PRODUCTS, DbSQLiteHelper.COLUMN_ID + " = " + id, null);
     }
 
     public List<Product> getAllComments() {
@@ -76,10 +79,14 @@ public class ProductsDataSource {
         return products;
     }
 
+
+    // helpers
+
     private Product cursorToProduct(Cursor cursor) {
-        Product product = new Product();
-        product.setId(String.valueOf(cursor.getInt(0)));
-        product.setName(cursor.getString(1));
+        Product product = new Product(
+                String.valueOf(cursor.getInt(0)),
+                cursor.getString(1),
+                cursor.getInt(2) > 0 ? true : false);
         return product;
     }
 }

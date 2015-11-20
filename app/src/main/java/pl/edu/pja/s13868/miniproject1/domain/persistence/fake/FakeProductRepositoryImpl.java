@@ -1,5 +1,7 @@
 package pl.edu.pja.s13868.miniproject1.domain.persistence.fake;
 
+import android.util.Log;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -63,11 +65,13 @@ public class FakeProductRepositoryImpl implements ProductRepository {
 
     @Override
     public Product findById(final String productId) {
+        Log.i("repo", "Finding product, ID: " + productId);
         return STORE.get(productId);
     }
 
     @Override
     public Collection<Product> listAllProducts() {
+        Log.i("repo", "Listing all products");
         return Collections.unmodifiableCollection(STORE.values());
     }
 
@@ -76,11 +80,14 @@ public class FakeProductRepositoryImpl implements ProductRepository {
         if (product == null) {
             throw new IllegalArgumentException("Product cannot be null");
         }
+        Log.i("repo", "Storing product: " + product);
         STORE.put(product.getId(), product);
     }
 
     @Override
     public void delete(final String productId) {
+        Log.i("repo", "Deleting product, ID: " + productId);
+
         STORE.remove(productId);
     }
 
