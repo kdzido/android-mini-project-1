@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import pl.edu.pja.s13868.miniproject1.domain.model.product.Product;
 
@@ -27,36 +26,50 @@ public class DataManager {
     private Handler mHandler;
     private ThreadTask mThreadTask;
 
-    // TODO why duplicated with repo??
-    // TODO why duplicated with repo??
-    // TODO why duplicated with repo??
-    private List<Product> mProductList;
-
 
     public DataManager(final Context pContext) {
         mHandler = new Handler();
         mSharedPreferences = pContext.getSharedPreferences(DataManager.class.getCanonicalName(), Context.MODE_PRIVATE);
         mThreadTask = ThreadTask.getInstance();
-        mProductList = new ArrayList<>(SingletonRegistry.INSTANCE.productRepositorySingleton().listAllProducts());
     }
 
+    /**
+     * Saves the font size shared preference.
+     *
+     * @param pFontSize the font size
+     */
     public void saveFontSize(int pFontSize) {
         mSharedPreferences.edit().putInt(KEY_FONT_SIZE, pFontSize).apply();
     }
 
+    /**
+     * @return the font size preference
+     */
     public int getFontSize() {
         return mSharedPreferences.getInt(KEY_FONT_SIZE, KEY_FONT_SIZE_DEFAULT);
     }
 
+    /**
+     * Saves the font color shared preference.
+     *
+     * @param pFontColor the font color (the #rrggbb notation)
+     */
     public void saveFontColor(String pFontColor) {
         mSharedPreferences.edit().putString(KEY_FONT_COLOR, pFontColor).apply();
     }
 
+    /**
+     * @return the font color preference
+     */
     public String getFontColor() {
         return mSharedPreferences.getString(KEY_FONT_COLOR, KEY_FONT_COLOR_DEFAULT);
     }
 
-
+    /**
+     * Performs the given operation on the all products in a separate thread.
+     *
+     * @param pDataHandler the operation to performs
+     */
     public void products(final DataHandler<Product> pDataHandler) {
         mThreadTask.executeTask(new Runnable() {
             @Override
@@ -64,13 +77,20 @@ public class DataManager {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        pDataHandler.onSuccess(mProductList);
+                        pDataHandler.onSuccess(
+                                new ArrayList<>(SingletonRegistry.INSTANCE.productRepositorySingleton().listAllProducts()));
                     }
                 });
             }
         });
     }
 
+    /**
+     * Performs the given operation on the product in a separate thread.
+     *
+     * @param pProductId the product ID
+     * @param pDataHandler the operation to perform
+     */
     public void product(final String pProductId, final DataHandler pDataHandler) {
         mThreadTask.executeTask(new Runnable() {
             @Override
@@ -87,7 +107,7 @@ public class DataManager {
     }
 
     /**
-     * Deletes product from persistent store.
+     * Performs product deletion operation in a separate thread.
      *
      * @param pProductId the product ID
      */
@@ -100,18 +120,12 @@ public class DataManager {
         });
     }
 
-    public void addProduct(final Product pProduct) {
-        mThreadTask.executeTask(new Runnable() {
-            @Override
-            public void run() {
-                mProductList.add(pProduct);
-
-                SingletonRegistry.INSTANCE.productRepositorySingleton().store(pProduct);
-            }
-        });
-    }
-
-    public void modifyProduct(final Product pProduct) {
+    /**
+     * Performs product insert or update operation in a separate thread.
+     *
+     * @param pProduct the product to persist
+     */
+    public void storeProduct(final Product pProduct) {
         mThreadTask.executeTask(new Runnable() {
             @Override
             public void run() {
@@ -119,4 +133,5 @@ public class DataManager {
             }
         });
     }
+
 }

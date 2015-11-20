@@ -97,7 +97,7 @@ public class MyListActivity extends AppCompatActivity implements View.OnClickLis
                 } else {
                     pObject.markAsNotBought();
                 }
-                EduApplication.getDataManager().modifyProduct(pObject);
+                EduApplication.getDataManager().storeProduct(pObject);
             }
         });
     }

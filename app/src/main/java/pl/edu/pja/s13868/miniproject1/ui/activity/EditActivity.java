@@ -59,7 +59,7 @@ public class EditActivity extends AppCompatActivity {
                         public void onSuccess(Product pProduct) {
                             pProduct.changeName(editText.getText().toString());
 
-                            EduApplication.getDataManager().modifyProduct(pProduct);
+                            EduApplication.getDataManager().storeProduct(pProduct);
                             Toast.makeText(getApplicationContext(), "Product was persisted", Toast.LENGTH_LONG).show();
                             finish();
                         }
@@ -73,7 +73,7 @@ public class EditActivity extends AppCompatActivity {
 
                         product = datasource.createProduct(product);
 
-                        EduApplication.getDataManager().addProduct(product);
+                        EduApplication.getDataManager().storeProduct(product);
                         finish();
 
                     } else {
