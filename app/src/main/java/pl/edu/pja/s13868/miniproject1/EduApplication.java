@@ -6,6 +6,7 @@ import android.content.Context;
 import pl.edu.pja.s13868.miniproject1.domain.model.product.ProductRepository;
 import pl.edu.pja.s13868.miniproject1.domain.persistence.DataManager;
 import pl.edu.pja.s13868.miniproject1.domain.persistence.fake.FakeProductRepositoryImpl;
+import pl.edu.pja.s13868.miniproject1.domain.persistence.sqlite.SqliteProductRepositoryImpl;
 
 /**
  * Responsibilities:
@@ -52,7 +53,8 @@ public class EduApplication extends Application {
                 // TODO use Sqllite or content-provider-based implementation eventually
                 // TODO use Sqllite or content-provider-based implementation eventually
                 // TODO use Sqllite or content-provider-based implementation eventually
-                sProductRepository = new FakeProductRepositoryImpl();
+//                sProductRepository = new FakeProductRepositoryImpl();
+                sProductRepository = SqliteProductRepositoryImpl.getInstance(getAppContext());
             }
         }
         return sProductRepository;

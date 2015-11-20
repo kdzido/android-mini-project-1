@@ -27,9 +27,12 @@ public class SqliteProductRepositoryImpl extends SQLiteOpenHelper implements Pro
     public static final int DATABASE_VERSION = 1;
     public static final String PRODUCT_TABLE_NAME = "product";
 
+
+    public static final String PRODUCT_TABLE_DROP = "DROP TABLE IF EXISTS " + PRODUCT_TABLE_NAME + ";";
+
     // TODO fix sql
     public static final String PRODUCT_TABLE_CREATE =
-            "CREATE TABLE IF NOT EXISTS" + PRODUCT_TABLE_NAME + " (" +
+            "CREATE TABLE IF NOT EXISTS " + PRODUCT_TABLE_NAME + " (" +
                     "product_id TEXT PRIMARY KEY, " +
                     "product_name TEXT NOT NULL, " +
                     "is_bought INTEGER NOT NULL);";
@@ -37,9 +40,9 @@ public class SqliteProductRepositoryImpl extends SQLiteOpenHelper implements Pro
     public static final String PRODUCT_TABLE_INITIAL_DATA =
             "INSERT INTO " + PRODUCT_TABLE_NAME + " (product_id, product_name, is_bought)" +
                     "VALUES " +
-                    "(NULL, 'product1', 0), " +
-                    "(NULL, 'product2', 1), " +
-                    "(NULL, 'product3', 0);";
+                    "(1, 'product1', 0), " +
+                    "(2, 'product2', 1), " +
+                    "(3, 'product3', 0);";
 
     /**
      * The singleton factory method.
@@ -63,9 +66,14 @@ public class SqliteProductRepositoryImpl extends SQLiteOpenHelper implements Pro
 
     @Override
     public void onCreate(final SQLiteDatabase db) {
+//        Log.i("sqlite_repo", "DROPPING DB TABLE: " + PRODUCT_TABLE_NAME);
+//        db.execSQL(PRODUCT_TABLE_DROP);
+
+        Log.i("sqlite_repo", "Creating DB: " + DATABASE_NAME + ", ver. " + DATABASE_VERSION);
         db.execSQL(PRODUCT_TABLE_CREATE);
 
-        // TODO disable
+        // TODO disable init data
+        Log.i("sqlite_repo", "Inserting initial data to: " + DATABASE_NAME + "." + PRODUCT_TABLE_NAME);
         db.execSQL(PRODUCT_TABLE_INITIAL_DATA);
     }
 
@@ -84,16 +92,14 @@ public class SqliteProductRepositoryImpl extends SQLiteOpenHelper implements Pro
 
         // Create/open the database for writing.
         // Nonetheless, the connection is cached so it's not expensive to call multiple times.
-        SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
 
         final Cursor cursor = db.query(
                 PRODUCT_TABLE_NAME,
-                new String[]{"product_id", "product_name", "is_bought"},
+                new String[] {"product_id", "product_name", "is_bought"},
                 "product_id = ?",
-                new String[]{productId},
-                null,
-                null,
-                null);
+                new String[] {productId},
+                null, null, null);
 
         try {
             if (cursor.moveToFirst()) {
@@ -118,7 +124,7 @@ public class SqliteProductRepositoryImpl extends SQLiteOpenHelper implements Pro
 
         // Create/open the database for writing.
         // Nonetheless, the connection is cached so it's not expensive to call multiple times.
-        SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
         final Cursor cursor = db.query(
                 PRODUCT_TABLE_NAME,
                 new String[]{"product_id", "product_name", "is_bought"},
