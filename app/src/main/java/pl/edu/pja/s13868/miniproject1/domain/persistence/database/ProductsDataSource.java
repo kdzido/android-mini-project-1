@@ -12,7 +12,7 @@ import java.util.List;
 import pl.edu.pja.s13868.miniproject1.domain.model.product.Product;
 
 /**
- * Created by zdzido on 20.11.2015.
+ * @author Krzysztof Dzido <s13868@pjwstka.edu.pl>
  */
 public class ProductsDataSource {
     // Database fields
