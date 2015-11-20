@@ -25,8 +25,7 @@ public interface ProductRepository {
     Collection<Product> listAllProducts();
 
     /**
-     * Persistes the given product.
-     * Inserts a new product or updates an existing one.
+     * Persists the given product (inserts or updates).
      *
      * @param product the product to persist
      */

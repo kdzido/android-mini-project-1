@@ -26,6 +26,10 @@ public class DataManager {
 
     private Handler mHandler;
     private ThreadTask mThreadTask;
+
+    // TODO why duplicated with repo??
+    // TODO why duplicated with repo??
+    // TODO why duplicated with repo??
     private List<Product> mProductList;
 
 
@@ -82,6 +86,11 @@ public class DataManager {
         });
     }
 
+    /**
+     * Deletes product from persistent store.
+     *
+     * @param pProductId the product ID
+     */
     public void deleteProduct(final String pProductId) {
         mThreadTask.executeTask(new Runnable() {
             @Override
@@ -95,10 +104,9 @@ public class DataManager {
         mThreadTask.executeTask(new Runnable() {
             @Override
             public void run() {
-                // TODO store in product repo as well
-                // TODO store in product repo as well
-                // TODO store in product repo as well
                 mProductList.add(pProduct);
+
+                SingletonRegistry.INSTANCE.productRepositorySingleton().store(pProduct);
             }
         });
     }

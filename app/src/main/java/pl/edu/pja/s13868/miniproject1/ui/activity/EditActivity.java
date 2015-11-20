@@ -16,6 +16,8 @@ import pl.edu.pja.s13868.miniproject1.domain.persistence.DataHandler;
 import pl.edu.pja.s13868.miniproject1.domain.persistence.database.ProductsDataSource;
 
 /**
+ * Handles Adding/Editing of a product.
+ *
  * @author Krzysztof Dzido <s13868@pjwstka.edu.pl>
  */
 public class EditActivity extends AppCompatActivity {
@@ -29,10 +31,10 @@ public class EditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
         initUI();
-        setupLogic();
+        setupDataSource();
     }
 
-    public void setupLogic() {
+    public void setupDataSource() {
         datasource = new ProductsDataSource(this);
         datasource.open();
     }
@@ -62,6 +64,7 @@ public class EditActivity extends AppCompatActivity {
                             finish();
                         }
                     });
+
                 } else {
                     if (!editText.getText().toString().isEmpty()) {
                         Random ran = new Random();
@@ -72,9 +75,11 @@ public class EditActivity extends AppCompatActivity {
 
                         EduApplication.getDataManager().addProduct(product);
                         finish();
+
                     } else {
                         Toast.makeText(getApplicationContext(), "Valid product name is required", Toast.LENGTH_LONG).show();
                     }
+
                 }
             }
         });

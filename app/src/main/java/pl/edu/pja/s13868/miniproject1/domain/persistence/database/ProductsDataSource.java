@@ -18,8 +18,11 @@ public class ProductsDataSource {
     // Database fields
     private SQLiteDatabase database;
     private DbSQLiteHelper dbHelper;
-    private String[] allColumns = {DbSQLiteHelper.COLUMN_ID,
-            DbSQLiteHelper.COLUMN_PRODUCT_NAME, DbSQLiteHelper.COLUMN_PRODUCT_NAME};
+    private String[] allColumns = {
+            DbSQLiteHelper.COLUMN_ID,
+            DbSQLiteHelper.COLUMN_PRODUCT_NAME,
+            DbSQLiteHelper.COLUMN_BOUGHT
+    };
 
     public ProductsDataSource(Context context) {
         dbHelper = new DbSQLiteHelper(context);
@@ -38,9 +41,11 @@ public class ProductsDataSource {
         values.put(DbSQLiteHelper.COLUMN_PRODUCT_NAME, pProduct.getName());
         values.put(DbSQLiteHelper.COLUMN_BOUGHT, pProduct.isBought() ? 1 : 0);
         long insertId = database.insert(DbSQLiteHelper.TABLE_PRODUCTS, null, values);
+
         Cursor cursor = database.query(DbSQLiteHelper.TABLE_PRODUCTS,
                 allColumns, DbSQLiteHelper.COLUMN_ID + " = " + insertId, null,
                 null, null, null);
+
         cursor.moveToFirst();
         Product product = cursorToProduct(cursor);
         cursor.close();
