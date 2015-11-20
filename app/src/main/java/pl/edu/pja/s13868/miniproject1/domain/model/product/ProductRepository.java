@@ -15,7 +15,7 @@ public interface ProductRepository {
      * @param productId the product ID
      * @return product with the given ID or null
      */
-    Product findById(String productId);
+    Product findById(Long productId);
 
     /**
      * Lists all products in the persistent store.
@@ -37,6 +37,6 @@ public interface ProductRepository {
      *
      * @param productId the product ID to delete
      */
-    void delete(String productId);
+    void delete(Long productId);
 
 }

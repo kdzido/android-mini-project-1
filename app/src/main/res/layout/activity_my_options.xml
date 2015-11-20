@@ -38,7 +38,7 @@
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Zapisz"
+        android:text="@string/save_options_button"
         android:textColor="#000000"/>
 
 </LinearLayout>

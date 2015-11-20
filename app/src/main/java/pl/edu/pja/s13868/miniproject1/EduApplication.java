@@ -50,10 +50,10 @@ public class EduApplication extends Application {
     public static synchronized ProductRepository productRepositorySingleton() {
         synchronized (ProductRepository.class) {
             if (sProductRepository == null) {
-                // TODO use Sqllite or content-provider-based implementation eventually
-                // TODO use Sqllite or content-provider-based implementation eventually
+
                 // TODO use Sqllite or content-provider-based implementation eventually
 //                sProductRepository = new FakeProductRepositoryImpl();
+
                 sProductRepository = SqliteProductRepositoryImpl.getInstance(getAppContext());
             }
         }

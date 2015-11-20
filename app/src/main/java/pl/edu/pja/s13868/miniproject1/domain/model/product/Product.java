@@ -9,18 +9,34 @@ import java.io.Serializable;
  */
 public class Product implements Serializable{
 
-    private String id;
+    private Long id;
     private String name;
     private boolean bought;
 
     /**
+     * Constructs a new representation (without ID).
+     *
+     * @param name the product name
+     * @param bought the flag for marking the product on the shopping list as bought
+     */
+    public Product(final String name, boolean bought) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Valid product name is required");
+        }
+
+        this.name = name;
+        this.bought = bought;
+    }
+
+    /**
+     * Constructs existing product's representation (has ID).
      *
      * @param id the unique product ID, once assigned it cannot be changed
      * @param name the product name
      * @param bought the flag for marking the product on the shopping list as bought
      */
-    public Product(final String id, final String name, boolean bought) {
-        if (id == null || id.trim().isEmpty()) {
+    public Product(final Long id, final String name, boolean bought) {
+        if (id == null) {
             throw new IllegalArgumentException("Valid product ID is required");
         }
 
@@ -65,22 +81,22 @@ public class Product implements Serializable{
     // Accessors
 
 
-    public void setId(String pId) {
+    public void setId(final Long pId) {
         id = pId;
     }
 
-    public void setName(String pName) {
+    public void setName(final String pName) {
         name = pName;
     }
 
-    public void setBought(boolean pBought) {
+    public void setBought(final boolean pBought) {
         bought = pBought;
     }
 
     /**
      * @return the product ID as string
      */
-    public String getId() {
+    public Long getId() {
         return id;
     }
 

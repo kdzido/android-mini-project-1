@@ -13,7 +13,7 @@ import pl.edu.pja.s13868.miniproject1.domain.model.product.ProductRepository;
 public class ContentProviderProductRepositoryImpl implements ProductRepository {
 
     @Override
-    public Product findById(final String productId) {
+    public Product findById(final Long productId) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
@@ -28,7 +28,7 @@ public class ContentProviderProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public void delete(String productId) {
+    public void delete(Long productId) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 

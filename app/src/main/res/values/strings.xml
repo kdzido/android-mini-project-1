@@ -64,4 +64,8 @@
     <string name="title_activity_options">Options</string>
     <string name="title_activity_edit">Edit product</string>
     <string name="title_activity_test">TestActivity</string>
+
+    <string name="save_product_button">Save</string>
+    <string name="save_options_button">Save</string>
+
 </resources>

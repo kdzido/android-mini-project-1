@@ -50,8 +50,8 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
         notifyDataSetChanged();
     }
 
-    public void deleteProductById(final String pProductId) {
-        Set<String> productsToDelete = new HashSet<>();
+    public void deleteProductById(final Long pProductId) {
+        Set<Long> productsToDelete = new HashSet<>();
 
         for (Product product : mProducts) {
             if (product.getId().equals(pProductId)) {

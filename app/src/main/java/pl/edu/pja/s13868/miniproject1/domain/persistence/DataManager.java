@@ -92,7 +92,7 @@ public class DataManager {
      * @param pProductId the product ID
      * @param pDataHandler the operation to perform
      */
-    public void product(final String pProductId, final DataHandler pDataHandler) {
+    public void product(final Long pProductId, final DataHandler pDataHandler) {
         mThreadTask.executeTask(new Runnable() {
             @Override
             public void run() {
@@ -112,7 +112,7 @@ public class DataManager {
      *
      * @param pProductId the product ID
      */
-    public void deleteProduct(final String pProductId) {
+    public void deleteProduct(final Long pProductId) {
         mThreadTask.executeTask(new Runnable() {
             @Override
             public void run() {

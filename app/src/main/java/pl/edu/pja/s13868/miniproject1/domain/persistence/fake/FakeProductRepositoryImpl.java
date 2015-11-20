@@ -17,29 +17,29 @@ import pl.edu.pja.s13868.miniproject1.domain.model.product.ProductRepository;
  */
 public class FakeProductRepositoryImpl implements ProductRepository {
 
-    private static final Product PRODUCT_01 = new Product("1", "Coca-Cola", false);
-    private static final Product PRODUCT_02 = new Product("2", "Pizza", false);
-    private static final Product PRODUCT_03 = new Product("3", "Toilet paper", false);
-    private static final Product PRODUCT_04 = new Product("4", "iPhone", true);
-    private static final Product PRODUCT_05 = new Product("5", "product 05", false);
-    private static final Product PRODUCT_06 = new Product("6", "product 06", false);
-    private static final Product PRODUCT_07 = new Product("7", "product 07", false);
-    private static final Product PRODUCT_08 = new Product("8", "product 08", true);
-    private static final Product PRODUCT_09 = new Product("9", "product 09", true);
-    private static final Product PRODUCT_10 = new Product("10", "product 10", true);
+    private static final Product PRODUCT_01 = new Product(1L, "Coca-Cola", false);
+    private static final Product PRODUCT_02 = new Product(2L, "Pizza", false);
+    private static final Product PRODUCT_03 = new Product(3L, "Toilet paper", false);
+    private static final Product PRODUCT_04 = new Product(4L, "iPhone", true);
+    private static final Product PRODUCT_05 = new Product(5L, "product 05", false);
+    private static final Product PRODUCT_06 = new Product(6L, "product 06", false);
+    private static final Product PRODUCT_07 = new Product(7L, "product 07", false);
+    private static final Product PRODUCT_08 = new Product(8L, "product 08", true);
+    private static final Product PRODUCT_09 = new Product(9L, "product 09", true);
+    private static final Product PRODUCT_10 = new Product(10L, "product 10", true);
 
-    private static final Product PRODUCT_11 = new Product("11", "Coca-Cola", false);
-    private static final Product PRODUCT_12 = new Product("12", "Pizza", false);
-    private static final Product PRODUCT_13 = new Product("13", "Toilet paper", false);
-    private static final Product PRODUCT_14 = new Product("14", "iPhone", true);
-    private static final Product PRODUCT_15 = new Product("15", "product 15", false);
-    private static final Product PRODUCT_16 = new Product("16", "product 16", false);
-    private static final Product PRODUCT_17 = new Product("17", "product 17", false);
-    private static final Product PRODUCT_18 = new Product("18", "product 18", true);
-    private static final Product PRODUCT_19 = new Product("19", "product 19", true);
-    private static final Product PRODUCT_20 = new Product("20", "product 20", true);
+    private static final Product PRODUCT_11 = new Product(11L, "Coca-Cola", false);
+    private static final Product PRODUCT_12 = new Product(12L, "Pizza", false);
+    private static final Product PRODUCT_13 = new Product(13L, "Toilet paper", false);
+    private static final Product PRODUCT_14 = new Product(14L, "iPhone", true);
+    private static final Product PRODUCT_15 = new Product(15L, "product 15", false);
+    private static final Product PRODUCT_16 = new Product(16L, "product 16", false);
+    private static final Product PRODUCT_17 = new Product(17L, "product 17", false);
+    private static final Product PRODUCT_18 = new Product(18L, "product 18", true);
+    private static final Product PRODUCT_19 = new Product(19L, "product 19", true);
+    private static final Product PRODUCT_20 = new Product(20L, "product 20", true);
 
-    private static final Map<String, Product> STORE = new HashMap<>();
+    private static final Map<Long, Product> STORE = new HashMap<>();
     static {
         STORE.put(PRODUCT_01.getId(), PRODUCT_01);
         STORE.put(PRODUCT_02.getId(), PRODUCT_02);
@@ -64,7 +64,7 @@ public class FakeProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Product findById(final String productId) {
+    public Product findById(final Long productId) {
         Log.i("repo", "Finding product, ID: " + productId);
         return STORE.get(productId);
     }
@@ -85,7 +85,7 @@ public class FakeProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public void delete(final String productId) {
+    public void delete(final Long productId) {
         Log.i("repo", "Deleting product, ID: " + productId);
 
         STORE.remove(productId);
