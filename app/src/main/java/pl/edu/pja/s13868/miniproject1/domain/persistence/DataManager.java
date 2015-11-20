@@ -95,6 +95,9 @@ public class DataManager {
         mThreadTask.executeTask(new Runnable() {
             @Override
             public void run() {
+                // TODO store in product repo as well
+                // TODO store in product repo as well
+                // TODO store in product repo as well
                 mProductList.add(pProduct);
             }
         });
